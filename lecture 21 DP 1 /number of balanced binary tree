@@ -1,0 +1,17 @@
+public class Solution {
+
+    static final int MOD = 1000000007;
+
+    public static long balancedBTs(long h) {
+        if (h == 0 || h == 1)
+            return 1;
+
+        // Calculate count of balanced trees recursively
+        long leftHeight = balancedBTs(h - 1);
+        long rightHeight = balancedBTs(h - 2);
+
+        // Formula: count(h) = count(h-1) * count(h-1) + 2 * count(h-1) * count(h-2)
+        return ((leftHeight * leftHeight) % MOD + (2 * leftHeight * rightHeight) % MOD) % MOD;
+    }
+
+}
