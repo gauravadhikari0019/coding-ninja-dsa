@@ -1,3 +1,5 @@
+/Min steps to 1 using DP
+
 public class Solution {
 
 	public static int countMinStepsToOne(int n) {
