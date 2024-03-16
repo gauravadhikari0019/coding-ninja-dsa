@@ -1,0 +1,29 @@
+public class Solution {
+
+    public static int balancedBTs(int height) {
+        int MOD = 1000000007; // 10^9 + 7
+
+        // Initialize dp array to store counts of balanced binary trees for each height
+        int[] dp = new int[height + 1];
+
+        // Base cases
+        dp[0] = 1;
+        dp[1] = 1;
+
+        // Fill dp array iteratively
+        for (int i = 2; i <= height; i++) {
+            dp[i] = (int) (((long) dp[i - 1] * (2 * (long) dp[i - 2] + dp[i - 1])) % MOD);
+        }
+
+        return dp[height];
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        int h1 = 3;
+        System.out.println(balancedBTs(h1)); // Output: 15
+
+        int h2 = 4;
+        System.out.println(balancedBTs(h2)); // Output: 315
+    }
+}
