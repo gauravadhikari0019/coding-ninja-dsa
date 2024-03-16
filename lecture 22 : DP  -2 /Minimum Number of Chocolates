@@ -1,0 +1,38 @@
+public class Solution {
+
+    public static int getMin(int arr[], int N){
+        // Initialize an array to store the number of chocolates each student gets
+        int[] chocolates = new int[N];
+        // Initially, assign 1 chocolate to each student
+        for (int i = 0; i < N; i++) {
+            chocolates[i] = 1;
+        }
+        
+        // Traverse from left to right
+        for (int i = 1; i < N; i++) {
+            // If the current student's score is greater than the previous one,
+            // assign one more chocolate than the previous student
+            if (arr[i] > arr[i - 1]) {
+                chocolates[i] = chocolates[i - 1] + 1;
+            }
+        }
+        
+        // Traverse from right to left to ensure students with higher scores
+        // than their right neighbors have more chocolates
+        for (int i = N - 2; i >= 0; i--) {
+            // If the current student's score is greater than the next one,
+            // and it already has fewer chocolates, update its chocolates count
+            if (arr[i] > arr[i + 1] && chocolates[i] <= chocolates[i + 1]) {
+                chocolates[i] = chocolates[i + 1] + 1;
+            }
+        }
+        
+        // Sum up the total number of chocolates distributed
+        int totalChocolates = 0;
+        for (int numChocolates : chocolates) {
+            totalChocolates += numChocolates;
+        }
+        
+        return totalChocolates;
+    }
+}
