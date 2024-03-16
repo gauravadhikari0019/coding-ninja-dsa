@@ -1,0 +1,22 @@
+public class Solution{
+    static int knapsack(int[] weight, int[] value, int n, int maxWeight) {
+        int[][] dp = new int[n + 1][maxWeight + 1];
+
+        // Building the DP table
+        for (int i = 1; i <= n; i++) {
+            for (int w = 1; w <= maxWeight; w++) {
+                // If the current item's weight is less than or equal to the current weight limit
+                if (weight[i - 1] <= w) {
+                    // Choose the maximum of including the current item or excluding it
+                    dp[i][w] = Math.max(value[i - 1] + dp[i - 1][w - weight[i - 1]], dp[i - 1][w]);
+                } else {
+                    // If the current item's weight exceeds the current weight limit, then exclude it
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+
+        // The answer will be at dp[n][maxWeight]
+        return dp[n][maxWeight];
+    }
+}
