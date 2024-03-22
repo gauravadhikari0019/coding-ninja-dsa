@@ -1,0 +1,57 @@
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+public class Solution {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+        
+        /* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+
+        Scanner sc=new Scanner(System.in);
+        int v=sc.nextInt();
+        int e=sc.nextInt();
+        int [][] m=new int[v][v];
+        for(int i=0;i<e;i++){
+            int v1=sc.nextInt();
+            int v2=sc.nextInt();
+            m[v1][v2]=1;
+            m[v2][v1]=1;
+        }
+        int s=sc.nextInt();
+        int end=sc.nextInt();
+        boolean visited[] = new boolean[v];
+        ArrayList<Integer> l1 = findPath(m,s,end,visited);
+        for(int i: l1)
+            System.out.print(i+" ");
+	}
+    
+    public static ArrayList<Integer> findPath(int [][] m,int sv,int t,boolean [] visited){
+
+        if(sv==t){
+            ArrayList<Integer> l1 = new ArrayList<>();
+            l1.add(sv);
+            return l1;
+        }
+
+        visited[sv]=true;
+        ArrayList<Integer> ans = new ArrayList<>();
+         for (int i = 0; i < m.length; i++) {
+             if(m[sv][i]==1 && !visited[i]){
+                 visited[i]=true;
+                 ArrayList<Integer> l2=findPath(m,i,t,visited);
+                 if(!l2.isEmpty()){
+                     ans=l2;
+                     break;
+                 }
+             }
+         }
+         if(!ans.isEmpty()){
+             ans.add(sv);
+         }
+         return ans;
+     }
+}
